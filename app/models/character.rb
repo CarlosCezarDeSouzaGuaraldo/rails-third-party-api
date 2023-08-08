@@ -1,3 +1,5 @@
+require 'net/http'
+
 class Character
     attr_accessor :id
 
