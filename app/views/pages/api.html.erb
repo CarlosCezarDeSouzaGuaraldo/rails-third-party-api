@@ -1,0 +1,15 @@
+<%= @message %>
+
+<% if @data.present? %>
+    <div>
+        Name: <%= @data["name"] %>
+    </div>
+    <% if @data["type"].present? %>
+        <div>
+            Type: <%= @data["type"] %>
+        </div>
+    <% end %>
+    <div>
+        <%= image_tag(@data["image"]) %>
+    </div>
+<% end %>
