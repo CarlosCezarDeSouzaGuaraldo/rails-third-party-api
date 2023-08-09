@@ -4,13 +4,13 @@ class PagesController < ApplicationController
   def api
     character = Character.new(params[:id])
       
-    if !character.valid
+    unless character.valid?
       @message = "Invalid character ID. Please enter a valid character ID."
       return @message
     end    
     
     @data = character.fetch_character_data
-    if !@data
+    unless @data
       @message = "Failed to fetch data from the third-party API. Please try again later."
     end
   end

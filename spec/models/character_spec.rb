@@ -6,7 +6,7 @@ RSpec.describe Character do
 
     it "When the id provided is nil" do
       character = Character.new(nil)
-      expect(character.id).to eq(nil)
+      expect(character.id).to be_blank
     end
 
     it "When the id provided is a number" do
@@ -21,7 +21,7 @@ RSpec.describe Character do
 
     it "When the id provided isn't a number" do
       character = Character.new("string")
-      expect(character.id).to eq(nil)
+      expect(character.id).to be_blank
     end
   end
 
@@ -30,22 +30,22 @@ RSpec.describe Character do
 
     it "When the character id is valid" do
       character.id = 12
-      expect(character.valid).to eq(true)
+      expect(character.valid?).to be_truthy
     end
 
     it "When the character is a invalid string" do
       character.id = "string"
-      expect(character.valid).to eq(false)
+      expect(character.valid?).to be_falsey
     end
 
     it "When the character is a empty string" do
       character.id = ""
-      expect(character.valid).to eq(false)
+      expect(character.valid?).to be_falsey
     end
 
     it "When the character is nil" do
       character.id = nil
-      expect(character.valid).to eq(false)
+      expect(character.valid?).to be_falsey
     end
   end
 

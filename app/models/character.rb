@@ -7,12 +7,12 @@ class Character
     @id = id.to_i.to_s == id.to_s ? id.to_i : nil
   end
 
-  def valid
-    @id.present? && @id.to_i > 0
+  def valid?
+    @id.present? && @id.to_i.positive?
   end
 
   def fetch_character_data
-    return if !self.valid
+    return unless self.valid?
 
     url_base_api = ENV["RICK_AND_MORTY_API_URL"]
     url = URI.parse("#{url_base_api}/#{self.id}")
