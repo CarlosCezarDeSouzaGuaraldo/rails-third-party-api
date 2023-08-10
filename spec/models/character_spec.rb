@@ -1,73 +1,92 @@
 require "rails_helper"
 
 RSpec.describe Character do
+  let (:id) { nil }
+  let (:character) { Character.new(id) }
 
-  describe "When initialize a new character" do
-
-    it "When the id provided is nil" do
-      character = Character.new(nil)
-      expect(character.id).to be_blank
+  describe ".new" do
+    context "When provides a number ID" do
+      let(:id) { 99 }
+      it "sets ID to a number" do
+        expect(character.id).to eq(id)
+      end
     end
 
-    it "When the id provided is a number" do
-      character = Character.new(99)
-      expect(character.id).to eq(99)
+    context "When the provides a string number" do
+      let(:id) { "99" }
+      it "sets ID to a number" do
+        expect(character.id).to eq(99)
+      end
     end
 
-    it "When the id provided is a string number" do
-      character = Character.new("99")
-      expect(character.id).to eq(99)
+    context "When the provides a string number, but it's not a number" do
+      let (:id) { "notanumber" }
+      it "sets ID to a nil" do
+        expect(character.id).to be_blank
+      end
     end
 
-    it "When the id provided isn't a number" do
-      character = Character.new("string")
-      expect(character.id).to be_blank
+    context "When provides a nil ID" do
+      it "sets ID to a nil" do
+        expect(character.id).to be_blank
+      end
     end
   end
 
   describe "When check to a valid character" do
-    let (:character) { Character.new }
-
-    it "When the character id is valid" do
-      character.id = 12
-      expect(character.valid?).to be_truthy
+    context "When ID is a number" do
+      let(:id) { 12 }
+      it "Character is valid" do
+        expect(character.valid?).to be_truthy
+      end
     end
 
-    it "When the character is a invalid string" do
-      character.id = "string"
-      expect(character.valid?).to be_falsey
+    context "When ID is a string number" do
+      let(:id) { "12" }
+      it "Character is valid" do
+        expect(character.valid?).to be_truthy
+      end
     end
 
-    it "When the character is a empty string" do
-      character.id = ""
-      expect(character.valid?).to be_falsey
+    context "When ID is a invalid string" do
+      let(:id) { "string" }
+      it "Character is valid" do
+        expect(character.valid?).to be_falsey
+      end
     end
 
-    it "When the character is nil" do
-      character.id = nil
-      expect(character.valid?).to be_falsey
+    context "When ID is an empty string" do
+      let(:id) { "" }
+      it "Character is valid" do
+        expect(character.valid?).to be_falsey
+      end
+    end
+
+    context "When ID is nil" do
+      it "Character isn't valid" do
+        expect(character.valid?).to be_falsey
+      end
     end
   end
 
   describe "When it's going to fetch the character data" do
-    let (:character) { Character.new("12") }
-    
     context "When the character is valid" do
+      let(:id) { 15 }
       it "Return the character's data" do
         expect(character.fetch_character_data).not_to be_nil
       end
     end
 
     context "When the character is invalid" do
+      let(:id) { "anystring" }
       it "Return nil" do
-        character.id = "string"
         expect(character.fetch_character_data).to be_nil   
       end
     end
 
-    context "When the character is a large number" do
+    context "When the character ID is a large number" do
+      let(:id) { 12542345234 }
       it "Return nil" do
-        character.id = 12542345234
         expect(character.fetch_character_data).to be_nil   
       end
     end
